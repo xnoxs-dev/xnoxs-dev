@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.9'
+VERSION = '0.1.1'
 DESCRIPTION = 'private modul'
 
 # Setting up
