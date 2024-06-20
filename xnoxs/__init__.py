@@ -33,7 +33,7 @@ def simpan(data_name):
         with open(data_name, 'r') as file:
             data = file.read().strip()
     else:
-        bn()
+        bn(name)
         data = input(f"{p} Input {data_name} : {h}")
         with open(data_name, 'w') as file:
             file.write(data)
