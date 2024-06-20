@@ -82,23 +82,23 @@ def timer(duration, caption="please wait"):
 def explode(awal, akhir, res, no):
     return res.split(awal)[no].split(akhir)[0]
 
-options = {
-    1: {'host': 'api.multibot.in', 'apikey': 'apikey-multibot'},
-    2: {'host': 'goodxevilpay.pp.ua', 'apikey': 'apikey-xevil'}
-}
-
 def choice():
-    print(f'1: Multibot')
-    print(f'2: Xevil')
+    options = {
+        1: {'host': 'api.multibot.in', 'apikey': 'apikey-multibot'},
+        2: {'host': 'goodxevilpay.pp.ua', 'apikey': 'apikey-xevil'}
+    }
+    print(h + '['+ k+ '1' + h + ']' + k + ' Multibot')
+    print(h + '['+ k+ '2' + h + ']' + k + ' Xevil')
     while True:
         try:
-            cap = int(input("Input Number: "))
+            cap = int(input(h+ "Input Number: " + p))
             if cap in options:
                 return options[cap]
             else:
                 print("Invalid choice, please try again.")
         except ValueError:
             print("Invalid input, please enter a number.")
+
 
 def antibot(response, api_key, hostcap):
     bot1 = response.split('rel="')[1].split('"')[0]
