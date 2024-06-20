@@ -234,7 +234,7 @@ def curl(url, headers=None, data=None):
         print(f"An error occurred: {e}")
         return None
 
-def h(url):
+def head(url):
    host = urllib.parse.urlparse(url).hostname
    headers = {
      'Host': host,
