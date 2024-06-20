@@ -81,4 +81,76 @@ def timer(duration, caption="please wait"):
 
 def explode(awal, akhir, res, no):
     return res.split(awal)[no].split(akhir)[0]
-    
+
+options = {
+    1: {'host': 'api.multibot.in', 'apikey': 'apikey-multibot'},
+    2: {'host': 'goodxevilpay.pp.ua', 'apikey': 'apikey-xevil'}
+}
+
+def choice():
+    print(f'1: Multibot')
+    print(f'2: Xevil')
+    while True:
+        try:
+            cap = int(input("Input Number: "))
+            if cap in options:
+                return options[cap]
+            else:
+                print("Invalid choice, please try again.")
+        except ValueError:
+            print("Invalid input, please enter a number.")
+
+def antibot(response, api_key, hostcap):
+    bot1 = response.split('rel="')[1].split('"')[0]
+    bot2 = response.split('rel="')[2].split('"')[0]
+    bot3 = response.split('rel="')[3].split('"')[0]
+    main = response.split('data:image/png;base64,')[1].split('"')[0]
+    img1 = response.split('data:image/png;base64,')[2].split('"')[0]
+    img2 = response.split('data:image/png;base64,')[3].split('"')[0]
+    img3 = response.split('data:image/png;base64,')[4].split('"')[0]
+
+    if not bot1:
+        raise ValueError("Bot information missing.")
+
+    data = {
+        'key': api_key,
+        'method': 'antibot',
+        'main': main,
+        bot1: img1,
+        bot2: img2,
+        bot3: img3
+    }
+
+    url = f'http://{hostcap}/in.php'
+    headers = {'Content-type': 'application/x-www-form-urlencoded'}
+
+    response = requests.post(url, data=data, headers=headers)
+    response_text = response.text
+
+    try:
+        task = response_text.split('OK|')[1]
+    except IndexError:
+        return 0
+
+    if task:
+        while True:
+            res_url = f'http://{hostcap}/res.php?key={api_key}&id={task}'
+            r2 = requests.get(res_url).text
+            try:
+                hasil = r2.split('OK|')[1]
+            except IndexError:
+                if r2 == "CAPCHA_NOT_READY":
+                    print("BYPASS ANTIBOT     \r", end="")
+                    time.sleep(3)
+                else:
+                    return 0
+                continue
+
+            antb = hasil.split(',')
+            return "+" + "+".join(antb)
+    else:
+        return 0
+
+    print("\r                            \r", end="")
+
+          
