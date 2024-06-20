@@ -53,7 +53,7 @@ def get_time_zone():
         os.environ['TZ'] = 'UTC'
         return "UTC"
 
-def bn(name):
+def bn(name=None):
     os.system('cls' if os.name == 'nt' else 'clear')
     zone = get_time_zone()
     date = time.strftime("%d-%b-%Y")
@@ -81,24 +81,6 @@ def timer(duration, caption="please wait"):
 
 def explode(awal, akhir, res, no):
     return res.split(awal)[no].split(akhir)[0]
-
-def choice():
-    options = {
-        1: {'host': 'api.multibot.in', 'apikey': 'apikey-multibot'},
-        2: {'host': 'goodxevilpay.pp.ua', 'apikey': 'apikey-xevil'}
-    }
-    print(h + '['+ k+ '1' + h + ']' + k + ' Multibot')
-    print(h + '['+ k+ '2' + h + ']' + k + ' Xevil')
-    while True:
-        try:
-            cap = int(input(h+ "Input Number: " + p))
-            if cap in options:
-                return options[cap]
-            else:
-                print("Invalid choice, please try again.")
-        except ValueError:
-            print("Invalid input, please enter a number.")
-
 
 def antibot(response, api_key, hostcap):
     bot1 = response.split('rel="')[1].split('"')[0]
@@ -248,4 +230,43 @@ def head(url):
 def fly(url):
    data = {'main': url}
    return requests.post('https://mcm-faucet.biz.id/index.php',headers={}, data=data).text
+
+import os
+
+def file_get_contents(filename):
+    with open(filename, 'r') as file:
+        return file.read()
+
+def file_put_contents(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
+
+def choice():
+    options = {
+        1: {'host': 'api.multibot.in', 'apikey_file': 'apikey-multibot'},
+        2: {'host': 'goodxevilpay.pp.ua', 'apikey_file': 'apikey-xevil'}
+    }
     
+    print(h + '['+ k+ '1' + h + ']' + k + ' Multibot')
+    print(h + '['+ k+ '2' + h + ']' + k + ' Xevil')
+    
+    while True:
+        try:
+            cap = int(input(h + "Input Number: " + p))
+            if cap in options:
+                option = options[cap]
+                apikey_file = option['apikey_file']
+                
+                if os.path.exists(apikey_file):
+                    apikey = file_get_contents(apikey_file)
+                else:
+                    apikey = input(f"API key for {option['host']} : ")
+                    file_put_contents(apikey_file, apikey)
+                
+                option['apikey'] = apikey
+                return option
+            else:
+                print("Invalid choice, please try again.")
+        except ValueError:
+            print("Invalid input, please enter a number.")
+
