@@ -83,13 +83,13 @@ def explode(awal, akhir, res, no):
     return res.split(awal)[no].split(akhir)[0]
 
 def antibot(response, api_key, hostcap):
-    bot1 = response.split('rel="')[1].split('"')[0]
-    bot2 = response.split('rel="')[2].split('"')[0]
-    bot3 = response.split('rel="')[3].split('"')[0]
-    main = response.split('data:image/png;base64,')[1].split('"')[0]
-    img1 = response.split('data:image/png;base64,')[2].split('"')[0]
-    img2 = response.split('data:image/png;base64,')[3].split('"')[0]
-    img3 = response.split('data:image/png;base64,')[4].split('"')[0]
+    bot1 = response.split('rel=\\"')[1].split('\\"')[0]
+    bot2 = response.split('rel=\\"')[2].split('\\"')[0]
+    bot3 = response.split('rel=\\"')[3].split('\\"')[0]
+    main = response.split('data:image/png;base64,')[1].split('\\"')[0]
+    img1 = response.split('data:image/png;base64,')[2].split('\\"')[0]
+    img2 = response.split('data:image/png;base64,')[3].split('\\"')[0]
+    img3 = response.split('data:image/png;base64,')[4].split('\\"')[0]
 
     if not bot1:
         raise ValueError("Bot information missing.")
