@@ -153,4 +153,70 @@ def antibot(response, api_key, hostcap):
 
     print("\r                            \r", end="")
 
-          
+
+def hcaptcha(sitekey, pageurl, apikey, hostcap):
+    while True:    
+        response = requests.get(f"http://{hostcap}/in.php?key={apikey}&method=hcaptcha&sitekey={sitekey}&pageurl={pageurl}")
+        task = response.text.split('OK|')[1] if 'OK|' in response.text else None
+        time.sleep(5)
+        
+        if task:
+            while True:
+                response_check = requests.get(f"http://{hostcap}/res.php?key={apikey}&action=get&id={task}")
+                if 'OK|' in response_check.text:
+                    hasil = response_check.text.split('OK|')[1]
+                    return hasil
+                elif response_check.text == "ERROR_CAPTCHA_UNSOLVABLE":
+                    print(f"{response_check.text}\r")
+                    break 
+                else:
+                    print(f"{response_check.text}\r", end='')
+                    time.sleep(3)
+        else:
+            continue 
+
+def recaptcha(key, url, apikey, hostcap):
+    while True:        
+        response = requests.get(f"https://{hostcap}/in.php?key={apikey}&method=userrecaptcha&googlekey={key}&pageurl={url}")
+        task = response.text.split('OK|')[1] if 'OK|' in response.text else None
+        time.sleep(10)
+        
+        if task:
+            while True:
+                response_check = requests.get(f"https://{hostcap}/res.php?key={apikey}&action=get&id={task}")
+                if 'OK|' in response_check.text:
+                    hasil = response_check.text.split('OK|')[1]
+                    return hasil
+                elif response_check.text == "ERROR_CAPTCHA_UNSOLVABLE":
+                    print(f"{response_check.text}\r")
+                    break 
+                else:
+                    print("BYPASS RECAPTCHA         \r", end='')
+                    time.sleep(3)
+        else:
+            continue 
+
+def gp_captcha(res):
+    cap = res.split('class="text-color text-capitalize">')[1].split('<')[0]
+    c1 = res.split('name="captcha_code" value="')[1].split('"')[0]
+
+    icon_paths = {
+        "flag": 'M349.565',
+        "tree": 'M377.33',
+        "heart": 'M414.9',
+        "car": 'M499.991',
+        "cup": 'M192',
+        "star": 'M259.3',
+        "house": 'M488',
+        "plane": 'M472',
+        "key": 'M512',
+        "truck": 'M624'
+    }
+
+    if cap in icon_paths:
+        opr = res.split(icon_paths[cap])[1].split('</div>')[0]
+        c2 = opr.split('class="icons" value="')[1].split('"')[0]
+        return {'captcha_code': c1, 'icons_value': c2}
+    else:
+        raise ValueError("Unexpected captcha type")
+        
