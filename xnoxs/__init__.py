@@ -220,3 +220,16 @@ def gp_captcha(res):
     else:
         raise ValueError("Unexpected captcha type")
         
+
+def curl(url, headers=None, data=None):
+    try:
+        if data:
+            response = requests.post(url, headers=headers, data=data)
+        else:
+            response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.text
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return None
