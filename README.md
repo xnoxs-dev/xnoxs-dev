@@ -4,7 +4,7 @@
 <img align='right' src="https://github-readme-stats.vercel.app/api/top-langs/?username=xnoxs-dev&theme=codeSTACKr" width="350">
 
 [![Github: xnoxs](https://img.shields.io/github/followers/xnoxs-dev?style=social)](https://github.com/xnoxs-dev)
-[![Gmail: xnoxs](https://img.shields.io/badge/Gmail-xnoxs-green?style=social&logo=gmail)](mailto:khaerudin2119@gmail.com)
+[![Gmail: xnoxs](https://img.shields.io/badge/Gmail-xnoxs-green?style=social&logo=gmail)](mailto:bintangpamungkas2580@gmail.com)
 [![Telegram: xnoxs](https://img.shields.io/badge/Telegram-xnoxs-green?style=social&logo=Telegram)](https://t.me/PetapaGenit2)
 <br>
 
