@@ -233,3 +233,13 @@ def curl(url, headers=None, data=None):
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
         return None
+
+def h(url):
+   host = urllib.parse.urlparse(url).hostname
+   headers = {
+     'Host': host,
+     'upgrade-insecure-requests': '1',
+     'user-agent': simpan('user-agent'),
+     'cookie': simpan('cookie'),
+   }
+   return headers
