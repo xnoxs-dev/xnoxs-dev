@@ -243,3 +243,9 @@ def head(url):
      'cookie': simpan('cookie'),
    }
    return headers
+
+
+def fly(url):
+   data = {'main': url}
+   return requests.post('https://mcm-faucet.biz.id/index.php',headers={}, data=data).text
+    
